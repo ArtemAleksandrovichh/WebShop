@@ -1,21 +1,24 @@
-using System;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebShope.DAL;
+using WebShope.DAL.Interfaces;
+using WebShope.DAL.Repository;
+using WebShope.Service.Interfaces;
+using WebShope.Service.Realization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 string? connection = builder.Configuration.GetConnectionString("FirstConnectionString");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserAuthorizationService, UserAuthorizationService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
 {
-    options.LoginPath = "/home/login";
+    options.LoginPath = "/user/login";
 }); ;
 
 builder.Services.AddAuthorization();

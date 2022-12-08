@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebShope.Models
+namespace WebShope.Domain.Models
 {
     public class UserLoginViewModel
     {

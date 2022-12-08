@@ -1,5 +1,5 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model WebShope.Models.UserRegisterViewModel
+@model WebShope.Domain.Models.UserRegisterViewModel
 
 <html> 
     <head>
@@ -10,7 +10,7 @@
     </style>
     </head>
     <body>
-    <form method="post" asp-action="Register" asp-controller="Home">
+    <form method="post" asp-action="Register" asp-controller="User">
         <p>
             <label>Логин</label>
                 <br/>
