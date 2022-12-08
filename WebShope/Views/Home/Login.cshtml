@@ -1,0 +1,16 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<form method="post" >
+    <p>
+        <label>Логин</label><br />
+        @Html.TextBox("Login")
+    </p>
+    <p>
+        <label>Пароль</label><br />
+        @Html.TextBox("Password","", new { type="password" })
+    </p>
+    <p>
+        <input type="submit" value="Войти" />
+        <a asp-controller="Home" asp-action="Register">Регистрацию</a>
+    </p>
+</form>
