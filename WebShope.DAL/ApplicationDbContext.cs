@@ -14,20 +14,10 @@ namespace WebShope.DAL
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasData(
-                    new User { Id=1,
-                        Login = "Tom",
-                        Name = "ddd", 
-                        Email="fff", 
-                        Password="dddd", 
-                        Surname="ddd",
-                        Age = 37, 
-                        Role = Role.User }
-            );
+            
         }
     }
 }

@@ -1,0 +1,14 @@
+﻿@model WebShope.Domain.Models.UserProfileViewModel
+
+@{
+	if (Model.ImageUrl is null)
+	{
+		Model.ImageUrl = "https://quo.eldiario.es/wp-content/uploads/2019/10/el-mito-de-los-culos-grandes-1280x720.jpg";
+	}
+}
+<div class="profile-redactor">
+	<img src="@Model.ImageUrl" height="100" width="100" /><br />
+	<label>@Model.Name</label><br />
+	<label>@Model.Surname</label><br />
+	<a href="#">Редактировать</a>
+</div>

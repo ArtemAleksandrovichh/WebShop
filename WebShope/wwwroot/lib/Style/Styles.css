@@ -1,0 +1,168 @@
+﻿
+.input-validation-error {
+    border-color: red;
+    
+}
+
+
+.div-center {
+    position: absolute;  
+    width: 400px;
+    height: 300px; 
+    left: 50%; 
+    top: 50%;
+    margin-left: -211px; 
+    margin-top: -150px;  
+    border: solid 1px black; 
+    padding: 10px; 
+    overflow: auto;
+}
+
+form {
+   
+}
+
+header{
+    padding-top:10px;
+    width:100%;
+    margin-top:0;
+    float:left;
+
+}
+
+
+
+.header-line {
+    font-family: 'Times New Roman', Times, serif;
+    display: flex;
+    align-items: center;
+
+}
+
+
+.profile-dropdown {
+    width: 100%;
+    float: right;
+    text-align: right;
+    margin-right: 60px;
+    overflow: hidden;
+    font-family: 'Times New Roman', Times, serif;
+}
+.profile-btn {
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: inherit;
+    margin: 0;
+}
+    .profile-btn:hover {
+        background-color: rgb(224, 220, 220);
+        transition: 0.7s;
+    }
+
+.profile-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    right:0;
+    margin-right:60px;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.profile-dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+    .profile-dropdown-content a:hover {
+        background-color: #ddd;
+    }
+
+
+
+
+
+.nav{
+    width:100%;
+    float:right;
+    text-align:right;
+    margin-right:30px;
+}
+.nav a
+{
+    font-weight:bold;
+    color:black;
+    text-decoration:none;
+    font-size:20px;
+    transition: color 0.2s;
+}
+.nav a:hover{
+    color:burlywood;
+}
+
+.menu {
+    width: 53px;
+    float: left;
+    overflow: hidden;
+    margin-left:18px;
+    font-family:'Times New Roman', Times, serif;
+}
+.dropbtn {
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: inherit;
+    margin: 0;
+}
+    .dropbtn:hover {
+        background-color: rgb(224, 220, 220);
+        transition: 0.7s;
+    }
+        .menu:hover .dropdown-content {
+            display: block;
+        }
+
+
+
+.dropdown-content {
+    display: none;
+    position:absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+
+
+
+
+body{
+    margin:0
+}
+
+
+
+

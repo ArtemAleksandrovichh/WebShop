@@ -11,7 +11,8 @@ namespace WebShope.DAL.Interfaces
         public Task<bool> Create(T entity);
         public Task<bool> Delete(T entity);
         public Task<T> Update(T entity);
-        public Task<T> Get(int id);
+        public Task<T?> Get(Guid id);
+        public Task<List<T>> Select();
 
     }
 }

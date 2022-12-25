@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,9 @@ namespace WebShope.Domain.Entityes
 {
     public class User
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        public Guid Id { get; set; }
         public string Login { get; set; } = null!;
 
         public string Name { get; set; } = null!;
@@ -23,5 +26,7 @@ namespace WebShope.Domain.Entityes
         public string Password { get; set; } = null!;
 
         public Role Role { get; set; }
+
+        public string ProfileImageUrl { get; set; }
     }
 }

@@ -9,13 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{DBB8AA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{362A42EB-7F42-495D-8AA8-4B86DE45901F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShope.Domain", "WebShope.Domain\WebShope.Domain.csproj", "{8026B923-E16D-4905-AC6D-1A05C9DE81BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebShope.Domain", "WebShope.Domain\WebShope.Domain.csproj", "{8026B923-E16D-4905-AC6D-1A05C9DE81BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShope.DAL", "WebShope.DAL\WebShope.DAL.csproj", "{572D0FA5-F7E4-4D65-9515-2CE162E1889B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebShope.DAL", "WebShope.DAL\WebShope.DAL.csproj", "{572D0FA5-F7E4-4D65-9515-2CE162E1889B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{1F8372DC-18CF-4123-A812-138ED4355F89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShope.Service", "WebShope.Service\WebShope.Service.csproj", "{44B63577-098D-4E75-B013-8CCF1D6964D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebShope.Service", "WebShope.Service\WebShope.Service.csproj", "{44B63577-098D-4E75-B013-8CCF1D6964D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,6 +9,6 @@ namespace WebShope.DAL.Interfaces
 {
     public interface IUserRepository: IBaseRepository<User>
     {
-        public Task<bool> GetByLoginAndPassword(string login, string password);
+        public Task<User?> GetByLoginAndPassword(string login, string password);
     }
 }

@@ -1,30 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using WebShope.DAL.AbstactClasses;
 using WebShope.DAL.Interfaces;
 using WebShope.Domain.Entityes;
 
 namespace WebShope.DAL.Repository
 {
-    public class UserRepository: IUserRepository
+    public class UserRepository: BaseCacheRepository<User>, IUserRepository
     {
         private ApplicationDbContext DbContext = null!;
-        public UserRepository(ApplicationDbContext context)
+        private IMemoryCache cache;
+        public UserRepository(ApplicationDbContext context, IMemoryCache _cache)
         {
             DbContext = context;
+            cache = _cache;
         }
         public async Task<bool> Create(User entity)
         {
-            if(await DbContext.Users.FirstOrDefaultAsync(x => x.Login == entity.Login) is null)
+            cache.TryGetValue(entity.Id, out User? user);
+
+            if (user is null && await DbContext.Users.FirstOrDefaultAsync(x => x.Login == entity.Login) is null)
             {
                 await DbContext.Users.AddAsync(entity);
                 await DbContext.SaveChangesAsync();
+                AddCache(entity);
+
                 return true;
             }
-            else return false;
+            return false;
+            
         }
         public async Task<bool> Delete(User entity)
         {
@@ -34,23 +38,41 @@ namespace WebShope.DAL.Repository
         }
         public async Task<User> Update(User entity)
         {
+
             DbContext.Users.Update(entity);
+            AddCache(entity);
             await DbContext.SaveChangesAsync();
             return entity;
         }
-        public async Task<User> Get(int id)
+        public async Task<User?> Get(Guid id)
         {
-           return await DbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+            cache.TryGetValue(id, out User? entity);
+            if(entity is null)
+            {
+                var user = await DbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+                if(user is not null)
+                {
+                    AddCache(user);
+                    return user;
+                }
+                return null;
+            }
+            return entity;
         }
 
-        public async Task<bool> GetByLoginAndPassword(string login, string password)
+        public async Task<User?> GetByLoginAndPassword(string login, string password)
         {
-            if (await DbContext.Users.FirstOrDefaultAsync(x => x.Login == login && x.Password == password) is not null)
-            {
-                return true;
-            }
-            else return false;
+            return await DbContext.Users.FirstOrDefaultAsync(x => x.Login == login && x.Password == password);
+        }
 
+        public Task<List<User>> Select()
+        {
+            return null;
+        }
+
+        protected override void AddCache(User user)
+        {
+            cache.Set(user.Id, user, CacheOptions);
         }
     }
 }

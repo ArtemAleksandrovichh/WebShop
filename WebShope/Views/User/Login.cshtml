@@ -1,16 +1,29 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@model WebShope.Domain.Models.UserLoginViewModel
 
-<form method="post" >
-    <p>
-        <label>Логин</label><br />
-        @Html.TextBox("Login")
-    </p>
-    <p>
-        <label>Пароль</label><br />
-        @Html.TextBox("Password","", new { type="password" })
-    </p>
-    <p>
-        <input type="submit" value="Войти" />
-        <a asp-controller="User" asp-action="Register">Регистрацию</a>
-    </p>
-</form>
+<div class="div-center">
+
+    <form method="post" asp-controller="User">
+        <p>
+            <label>Логин</label><br />
+            <input asp-for="Login" />
+            <span asp-validation-for="Login" />
+        </p>
+        <p>
+            <label>Пароль</label><br />
+            <input asp-for="Password" />
+            <span asp-validation-for="Password" />
+        </p>
+        <p>
+            <div asp-validation-summary="ModelOnly"></div>
+        </p>
+        <p>
+            <input type="submit" value="Войти" />
+            <a asp-controller="User" asp-action="Register">Регистрацию</a>
+        </p>
+
+    </form>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,18 @@
+﻿@model WebShope.Domain.Models.UserProfileViewModel
+
+@{
+	Layout = "_AccountLayout";
+	
+}
+
+
+<div class="profile-page">
+	@{
+		await Html.RenderPartialAsync("ProfileMenu/ProfileMenuPartial");
+	}
+	@RenderBody()
+</div>
+
+
+
+<link rel="stylesheet" href="~/lib/Style/Profile.css" />
