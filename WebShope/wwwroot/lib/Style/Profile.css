@@ -1,13 +1,13 @@
 ﻿
-
 .profile-page {
     text-align: center;
+    display: flex;
     margin-top: 100px;
+    margin-left: 30%;
 }
 
 .profile-menu {
     margin-top: 10px;
-    display: inline-block;
     vertical-align: top;
 }
 
@@ -32,7 +32,6 @@
         fill: #09244B;
     }
 
-.profile-redactor {
+.profile-main {
     margin-left: 50px;
-    display: inline-block
 }

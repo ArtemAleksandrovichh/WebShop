@@ -1,38 +1,78 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebShope.DAL.Interfaces;
 using WebShope.Domain.Models;
 
 namespace WebShope.Controllers
 {
+    enum ProfileViews
+    {
+        PERSONAL, INDEX
+    }
     public class ProfileController : Controller
     {
+        private UserProfileViewModel? userProfileViewModel;
+        private UserProfileRedactorViewModel? userProfileRedactorViewModel;
+        private IUserRepository userRepository;
+
+        public ProfileController(IUserRepository _userRepository)
+        {
+            userRepository = _userRepository;
+        }
+        [HttpGet]
+        [Authorize]
         public IActionResult Index()
         {
-            return View();
+            return View(GetUserProfileViewModel());
         }
 
-        [HttpGet]
         [Authorize]
-        public IActionResult Main()
+        [HttpPost]
+        public IActionResult GetView(string viewName)
+        {
+            switch (viewName)
+            {
+                case "Index":
+                    return PartialView(viewName, GetUserProfileViewModel());
+                case "Personal":
+                    return PartialView(viewName, GetUserProfileRedactorViewModel());
+                default:
+                    return null;
+
+            }
+        }
+
+        private UserProfileViewModel GetUserProfileViewModel()
         {
             var User = HttpContext.User;
-            UserProfileViewModel profile = new UserProfileViewModel();
-            if (User is not null)
+            if (userProfileViewModel is null)
             {
-                profile.ImageUrl = User.FindFirst("ProfileImageUrl")?.Value;
-                profile.Name = User.FindFirst("Name")?.Value;
-                profile.Surname = User.FindFirst("Surname")?.Value;
+                userProfileViewModel = new UserProfileViewModel();
+                userProfileViewModel.ImageUrl = User.FindFirst("ProfileImageUrl")?.Value;
+                userProfileViewModel.Name = User.FindFirst("Name")?.Value;
+                userProfileViewModel.Surname = User.FindFirst("Surname")?.Value;
+            }
+            return userProfileViewModel;
+        }
+
+        private async Task<UserProfileRedactorViewModel> GetUserProfileRedactorViewModel()
+        {
+            if(userProfileRedactorViewModel is not null)
+            {
+                return userProfileRedactorViewModel;
             }
 
-            return View(profile);
-        }
+            var userId = new Guid(HttpContext.User.FindFirst("Id")?.Value);
 
-        [HttpGet]
-        [Authorize]
-        public IActionResult Personal()
-        {
-            return View();
-        }
+            var user = userRepository.Get(userId).Result;
+            userProfileRedactorViewModel = new UserProfileRedactorViewModel()
+            {
+                Name = user.Name,
+                Surname = user.Surname,
+                Age = user.Age
+            };
+            return userProfileRedactorViewModel;
 
+        }
     }
 }

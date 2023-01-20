@@ -1,3 +1,26 @@
-﻿<p>
-	FFFFFFFFFFFFFFFFFFFFFFFFFFF
-</p>
+﻿@model WebShope.Domain.Models.UserProfileRedactorViewModel
+
+<form method="post">
+    <p>
+        <label> Имя</label>
+        <br />
+        <input asp-for="Name" />
+        <span asp-validation-for="Name" />
+    </p>
+    <p>
+        <label> Фамилия</label>
+        <br />
+        <input asp-for="Surname" />
+        <span asp-validation-for="Surname" />
+    </p>
+    <p>
+        <label> Возраст</label>
+        <br />
+        <input type="number" asp-for="Age" />
+        <span asp-validation-for="Age" />
+    </p>
+    <p>
+        <input type="submit" value="Сохранить" />
+    </p>
+ 
+</form>

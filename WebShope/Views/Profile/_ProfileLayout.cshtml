@@ -10,9 +10,13 @@
 	@{
 		await Html.RenderPartialAsync("ProfileMenu/ProfileMenuPartial");
 	}
-	@RenderBody()
+	<script src="~/Scripts/ProfileMenuScripts.js"></script>
+
+	<div id="menu-content">
+		@RenderBody()
+	</div>
 </div>
 
 
 
-<link rel="stylesheet" href="~/lib/Style/Profile.css" />
+

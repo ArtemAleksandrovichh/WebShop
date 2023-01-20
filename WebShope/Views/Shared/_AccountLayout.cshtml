@@ -1,10 +1,15 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <link href="@Url.Content("~/lib/Style/Styles.css")" rel="stylesheet" type="text/css" />
-    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/lib/Style/Styles.css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width"/>
     <title>@ViewBag.Title</title>
-    <script src="~/Scripts/Scripts.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <link rel="stylesheet" href="~/lib/Style/Profile.css"/>
+ 
 
 </head>
 
@@ -14,7 +19,6 @@
             @{
                 await Html.RenderPartialAsync("Header/HeaderPartial");
             }
-
             <div class="profile-dropdown">
                 <button class="profile-btn" >
                     <svg onclick="DropDownProfileList()" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,20 +39,18 @@
                     </svg>
                 </button>
                 <div id="profile-dropdown-content" class="profile-dropdown-content">
-                    <a asp-controller="Profile" asp-action="Main">Профиль</a>
+                    <a asp-controller="Profile" asp-action="Index">Профиль</a>
                     <a href="#">Выйти</a>
                     <a href="#">Настройки</a>
                 </div>
             </div>
-
         </div>
     </header>
-    <div class="main"> @RenderBody()</div>
+    <div class="main">@RenderBody()</div>
     <footer></footer>
 
-
+    <script src="~/Scripts/Scripts.js"></script>
+    
 </body>
 </html>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
