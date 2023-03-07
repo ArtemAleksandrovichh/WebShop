@@ -1,0 +1,15 @@
+﻿@model List<WebShope.Domain.Entityes.Category>
+
+<form asp-action="Index" asp-controller="Catalog" method="post">
+    <label>Выберите категорию товара</label>
+    <br/>
+    <select name="categoryId">
+        @foreach(var a in Model)
+        {
+            <option value=@a.Id>
+                @a.Name
+            </option>
+        }
+    </select>
+    <input type="submit" value="Отобразить"/>
+</form>

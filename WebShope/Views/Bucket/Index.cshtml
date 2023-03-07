@@ -1,0 +1,75 @@
+﻿@model List<WebShope.Domain.Models.BacketViewModel>
+<link rel="stylesheet" href="~/lib/Style/Bucket/Bucket.css" />
+
+<div class="container">
+
+	<h1>Корзина</h1>
+
+	<div class="cart">
+
+		<div class="products">
+
+			@foreach(var product in Model){
+			<div class="product">
+
+				<img src=@product.ImageUrl>
+
+				<div class="product-info">
+					
+					<h3 class="product-name">@product.Name</h3>
+
+						<h4 class="product-price">@String.Format("{0:c0}", product.Price)</h4>
+
+					<h4 class="product-offer"></h4>
+
+					<p class="product-quantity">Qnt: <input value=@product.Amount name="">
+
+						<p class="product-remove" onclick="RemoveItemFromBucket('@product.Id')">
+
+						<i class="fa fa-trash" aria-hidden="true"></i>
+
+						<span class="remove">Удалить</span>
+
+					</p>
+
+				</div>
+
+			</div>
+			}
+
+		</div>
+
+		<div class="cart-total">
+
+			<p>
+
+				<span>Общая стоимость</span>
+				<span>@String.Format("{0:c0}", Model.Sum(x => x.Amount * x.Price))</span>
+
+			</p>
+
+			<p>
+
+				<span>Количество товаров</span>
+
+				<span>@Model.Sum(x => x.Amount)</span>
+
+			</p>
+
+			<p>
+
+				<span></span>
+
+				<span></span>
+
+			</p>
+
+			<a href="#">Proceed to Checkout</a>
+
+		</div>
+
+	</div>
+
+</div>
+
+<script src="~/Scripts/Bucket.js"></script>

@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.CompilerServices;
 using WebShope.DAL.Interfaces;
+using WebShope.DAL.Repository;
 using WebShope.Domain.Models;
+using WebShope.Service.Interfaces;
 
 namespace WebShope.Controllers
 {
@@ -14,10 +17,12 @@ namespace WebShope.Controllers
         private UserProfileViewModel? userProfileViewModel;
         private UserProfileRedactorViewModel? userProfileRedactorViewModel;
         private IUserRepository userRepository;
+        private IUserAuthorizationService userAuthorizationService;
 
-        public ProfileController(IUserRepository _userRepository)
+        public ProfileController(IUserRepository _userRepository, IUserAuthorizationService _userAuthorizationService)
         {
             userRepository = _userRepository;
+            userAuthorizationService = _userAuthorizationService;
         }
         [HttpGet]
         [Authorize]
@@ -36,10 +41,29 @@ namespace WebShope.Controllers
                     return PartialView(viewName, GetUserProfileViewModel());
                 case "Personal":
                     return PartialView(viewName, GetUserProfileRedactorViewModel());
+                    
                 default:
                     return null;
 
             }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task SavePersonal(UserProfileRedactorViewModel user)
+        {
+            var userFromClaims = HttpContext.User;
+            var User = await userRepository.Get(new Guid(userFromClaims.FindFirst("Id")?.Value));
+            User.Name = user.Name;
+            User.Surname = user.Surname;
+            User.Age = user.Age;
+
+            await userRepository.Update(User);
+            await userAuthorizationService.Update(User, HttpContext);
+
+            userProfileViewModel = null;
+
+            Redirect("/Profile/Index");
         }
 
         private UserProfileViewModel GetUserProfileViewModel()
@@ -55,7 +79,7 @@ namespace WebShope.Controllers
             return userProfileViewModel;
         }
 
-        private async Task<UserProfileRedactorViewModel> GetUserProfileRedactorViewModel()
+        private UserProfileRedactorViewModel GetUserProfileRedactorViewModel()
         {
             if(userProfileRedactorViewModel is not null)
             {

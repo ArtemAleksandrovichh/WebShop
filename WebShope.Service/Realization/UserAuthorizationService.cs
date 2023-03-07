@@ -8,7 +8,7 @@ using WebShope.Domain.StaticClasses;
 using WebShope.Domain.Helpers;
 using WebShope.Domain.Models;
 using WebShope.Service.Interfaces;
-
+using System.Runtime.InteropServices;
 
 namespace WebShope.Service.Realization
 {
@@ -40,7 +40,6 @@ namespace WebShope.Service.Realization
                     new Claim(IdentityTypes.Login, _user.Login),
                     new Claim(IdentityTypes.Name, _user.Name),
                     new Claim(IdentityTypes.Surname, _user.Surname),
-                    new Claim(ClaimTypes.Name, _user.Password),
                     new Claim(IdentityTypes.ProfileImageUrl, _user.ProfileImageUrl)
                     };
 
@@ -52,6 +51,24 @@ namespace WebShope.Service.Realization
             }
             else return false;
         }
+        public async Task Update(User _user, HttpContext context)
+        {
+            await context.SignOutAsync();
+
+            var claims = new List<Claim>(){
+                    new Claim(IdentityTypes.Id, _user.Id.ToString()),
+                    new Claim(IdentityTypes.Login, _user.Login),
+                    new Claim(IdentityTypes.Name, _user.Name),
+                    new Claim(IdentityTypes.Surname, _user.Surname),
+                    new Claim(IdentityTypes.ProfileImageUrl, _user.ProfileImageUrl)
+                    };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+            await context.SignInAsync(claimsPrincipal);
+        }
+
 
         private User CreateNewUser(UserRegisterViewModel user, string url)
         {

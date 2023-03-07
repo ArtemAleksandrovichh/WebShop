@@ -18,7 +18,18 @@ builder.Services.Configure<Account>(builder.Configuration.GetSection("Cloudinary
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUserAuthorizationService, UserAuthorizationService>();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "BasketSession";
+    options.Cookie.IsEssential = true;
+
+}
+);
+
 builder.Services.AddMemoryCache();
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -31,10 +42,12 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+app.UseSession();
 app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllerRoute("defalt", "{controller=Home}/{action=Index}/{id?}");
+
 
 
 app.Run();

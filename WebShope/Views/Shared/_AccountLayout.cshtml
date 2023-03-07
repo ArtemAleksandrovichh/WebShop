@@ -5,21 +5,39 @@
     <link href="~/lib/Style/Styles.css" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width"/>
     <title>@ViewBag.Title</title>
+
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/jquery/dist/jquery.blockUI.js"></script>
     <link rel="stylesheet" href="~/lib/Style/Profile.css"/>
- 
+
 
 </head>
 
 <body>
+    @using WebShope.Domain.Static;
+    @using WebShope.Extensions;
+
     <header>
         <div class="header-line">
             @{
                 await Html.RenderPartialAsync("Header/HeaderPartial");
             }
+
             <div class="profile-dropdown">
+                @{
+                    int? count = Context.Session.Get<int?>(Constans.SESSIONCOUNT);
+                    if(count is null)
+                    {
+                        <a asp-action="Index" asp-controller="Bucket" id="baсket" >Корзина </a>
+                    }
+                    else
+                    {
+                        <a asp-action="Index" asp-controller="Bucket" id="baсket">Корзина @(count)</a>
+                    }
+                }
+                
                 <button class="profile-btn" >
                     <svg onclick="DropDownProfileList()" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_203_2)">

@@ -1,22 +1,22 @@
 ﻿@model WebShope.Domain.Models.UserProfileRedactorViewModel
 
-<form method="post">
+<form method="post" id="personal_form" asp-action="GetView" asp-controller="Profile">
     <p>
         <label> Имя</label>
         <br />
-        <input asp-for="Name" />
+        <input type="text" id="name" name="name" asp-for="Name" value="@Model.Name"/>
         <span asp-validation-for="Name" />
     </p>
     <p>
         <label> Фамилия</label>
         <br />
-        <input asp-for="Surname" />
+        <input type="text" id="sname" name="sname" asp-for="Surname" value="@Model.Surname"/>
         <span asp-validation-for="Surname" />
     </p>
     <p>
         <label> Возраст</label>
         <br />
-        <input type="number" asp-for="Age" />
+        <input type="number" asp-for="Age" id="age"  name="age" value="@Model.Age"/>
         <span asp-validation-for="Age" />
     </p>
     <p>
@@ -24,3 +24,5 @@
     </p>
  
 </form>
+
+<script src="~/Scripts/ProfilePersonalForm.js"></script>
